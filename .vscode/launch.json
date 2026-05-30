@@ -1,0 +1,23 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Debuguj Moduł - ALL",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "portfolio", // Zamiast "program": "${file}"
+            "args": ["--csv", "eMAKLER_historia_transakcji5.Csv", "--date", "2026-04-30", "--tickers", "IBM", "ORACLE"], // Parametry
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "name": "Debuguj Moduł - IBM",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "portfolio", // Zamiast "program": "${file}"
+            "args": ["--csv", "eMAKLER_historia_transakcji5.Csv", "--date", "2026-04-30", "--tickers", "IBM"], // Parametry
+            "console": "integratedTerminal",
+            "justMyCode": true
+        }
+    ]
+}

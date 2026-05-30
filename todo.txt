@@ -1,0 +1,19 @@
+Założenia funkcjonalne:
+
+Jeśli parametr --date NIE zostanie podany, program generuje raport zbiorczy dla wszystkich dostępnych papierów (tickerów) obejmujący CAŁY okres dostępny w pliku CSV.
+Raport ma pokazywać wartości zysku/straty (PNL) dla każdego papieru, sumując wszystkie transakcje z całego okresu.
+Nagłówki raportu (CLI) powinny być jasno oznaczone, że jest to raport za cały okres (brak daty odniesienia).
+Opcja --plot ma być również dostępna w tym trybie i generować wykres słupkowy zysku/straty dla każdego papieru, analogicznie jak przy podaniu daty.
+Jeśli użytkownik poda --date, działa dotychczasowa logika (raport na dany dzień).
+Jeśli użytkownik NIE poda --date, program NIE powinien zgłaszać błędu, lecz przełączyć się na raport sumaryczny.
+Założenia techniczne:
+
+Sprawdzenie obecności parametru --date w argparse.
+Jeśli brak, logika filtrowania transakcji i budowania pozycji nie powinna ograniczać się do jednej daty, lecz uwzględniać cały plik.
+Wyliczenie całkowitego zysku/straty: sumarycznie po wszystkich operacjach dla każdego tickera.
+CLI: w raporcie i (jeśli plot) na wykresie powinna pojawić się informacja, że raport dotyczy całej historii.
+Testy i walidacja:
+
+Plik CSV bez daty → raport za całość, plot działa.
+Plik CSV z datą → dotychczasowy wynik, bez regresji.
+Raport i wykres zgodnie z oczekiwaniami – wartości zysku/straty sumują się per ticker.

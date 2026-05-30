@@ -1,0 +1,66 @@
+# Key: "Papier|Gielda" -> Yahoo Finance (US tickers; GPW: SYMBOL.WA).
+# Ceny GPW: Yahoo z sufiksem .WA (alternatywnie stockwatch.pl / cedula GPW - recznie).
+
+"ORACLE CORP|USA-NYSE":
+  yahoo: ORCL
+"IBM|USA-NYSE":
+  yahoo: IBM
+"INTEL CORP|USA-NASDAQ":
+  yahoo: INTC
+"INFLEQTION I|USA-NYSE":
+  yahoo: INFQ
+"MICROCHIP TE|USA-NASDAQ":
+  yahoo: MCHP
+"DELTA|USA-NYSE":
+  yahoo: DAL
+"BOEING CO|USA-NYSE":
+  yahoo: BA
+"IONQ INC|USA-NYSE":
+  yahoo: IONQ
+"NORTHROP GRU|USA-NYSE":
+  yahoo: NOC
+"SNOWFLAKE|USA-NYSE":
+  yahoo: SNOW
+"RIGETTI COMP|USA-NASDAQ":
+  yahoo: RGTI
+
+
+
+"ISLN LN ETF|GBR-LSE":
+  yahoo: ISLN.L
+"PHPD LN ETF|GBR-LSE":
+  yahoo: PHPD.L
+"PHAG LN ETF|GBR-LSE":
+  yahoo: PHAG.L
+"UDVD LN ETF|GBR-LSE":
+  yahoo: UDVD.L
+
+"XMLC GR ETF|DEU-XETRA":
+  yahoo: XMLC.DE
+
+"PGE|WWA-GPW":
+  yahoo: PGE.WA
+"ASSECOPOL|WWA-GPW":
+  yahoo: ASSECOPOL.WA
+"SCANWAY|WWA-GPW":
+  yahoo: SCW.WA
+"ETFBM40TR|WWA-GPW":
+  yahoo: ETFBM40TR.WA
+"ETFBTBSP|WWA-GPW":
+  yahoo: ETFBTBSP.WA
+"PKPCARGO|WWA-GPW":
+  yahoo: PKP.WA
+"GPW|WWA-GPW":
+  yahoo: GPW.WA
+"GPW2|WWA-GPW":
+  skip: true
+"PGNIG|WWA-GPW":
+  yahoo: PGN.WA
+"PCGUARD|WWA-GPW":
+  skip: true
+"SFINKS|WWA-GPW":
+  yahoo: SFN.WA
+"SFINKS-PP|WWA-GPW":
+  yahoo: SFN.WA
+"ODLEWNIE|WWA-GPW":
+  yahoo: ODLEWNIE.WA
