@@ -84,9 +84,32 @@ def read_emakler_csv(path: Path) -> list[Transaction]:
     def _indices(name: str) -> list[int]:
         return [i for i, h in enumerate(header) if h.strip() == name]
 
+    def _require_columns(required: list[str], *, kind_label: str) -> None:
+        missing = [c for c in required if c not in idx]
+        if missing:
+            raise ValueError(
+                f"Brak wymaganych kolumn w eksporcie eMAKLER ({kind_label}): {', '.join(missing)}. "
+                f"Nagłówek: {', '.join(x.strip() for x in header)}"
+            )
+
     out: list[Transaction] = []
 
     if kind == "orders":
+        _require_columns(
+            [
+                "Stan",
+                "Papier",
+                "Giełda",
+                "K/S",
+                "Liczba zlecona",
+                "Liczba zrealizowana",
+                "Limit ceny",
+                "Walute",
+                "Data zlecenia",
+            ],
+            kind_label="historia zleceń",
+        )
+
         for row in rows[1:]:
             if len(row) < len(header):
                 continue
@@ -123,10 +146,28 @@ def read_emakler_csv(path: Path) -> list[Transaction]:
         return out
 
     # kind == "transactions"
+    _require_columns(
+        [
+            "Czas transakcji",
+            "Papier",
+            "Giełda",
+            "K/S",
+            "Liczba",
+            "Kurs",
+            "Prowizja",
+        ],
+        kind_label="historia transakcji",
+    )
+
     # Uwaga: nagłówek ma kilka kolumn o nazwie "Waluta".
     waluta_idx = _indices("Waluta")
-    if len(waluta_idx) < 1:
-        raise ValueError("Nie znaleziono kolumny 'Waluta' w eksporcie historii transakcji.")
+
+
+    if len(waluta_idx) < 2:
+        raise ValueError(
+            "Nieprawidłowy eksport historii transakcji: oczekiwano co najmniej 2 kolumn 'Waluta' "
+            "(dla ceny i prowizji)."
+        )
 
     for row in rows[1:]:
         if len(row) < len(header):
@@ -142,14 +183,17 @@ def read_emakler_csv(path: Path) -> list[Transaction]:
         qty = _parse_qty(row[idx["Liczba"]])
         price = _parse_float(row[idx["Kurs"]])
 
-        cur_price = (
-            row[waluta_idx[0]].strip().upper() if len(waluta_idx) >= 1 else "PLN"
-        ) or "PLN"
 
-        fee = _parse_money(row[idx["Prowizja"]]) if "Prowizja" in idx else 0.0
-        cur_fee = (
-            row[waluta_idx[1]].strip().upper() if len(waluta_idx) >= 2 else "PLN"
-        ) or "PLN"
+
+
+        cur_price = (row[waluta_idx[0]].strip().upper() or "PLN")
+
+
+
+
+
+        fee = _parse_money(row[idx["Prowizja"]])
+        cur_fee = (row[waluta_idx[1]].strip().upper() or "PLN")
 
         out.append(
             Transaction(
